@@ -34,12 +34,13 @@ df_bellevue = pd.read_csv(url)
 
 def task_1():
     df = df_bellevue.copy()
-    df['gender'] = df['gender'].replace('',pd.NA)
+    df['gender'] = df['gender'].replace('u',pd.NA)
     return df.isna().sum().sort_values().index.tolist()
 
 def task_2():
     df = df_bellevue.copy()
-    df['year'] = pd.to_datetime(df['date_in'].dt.year)
+    df['date_in'] = pd.to_datetime(df['date_in'])
+    df['year'] = df['date_in'].dt.year
     return df.groupby('year').size().reset_index(name='total_admissions')
 
 def task_3():

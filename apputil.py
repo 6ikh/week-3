@@ -36,9 +36,13 @@ df_bellevue = pd.read_csv(url)
 
 # function task_1
 def task_1():
+    # making copy of data set
     df = df_bellevue.copy()
+    #making the gender column have missing values for the list values
     df['gender'] = df['gender'].replace(["?","g","h"],pd.NA)
+    # counting the number of missing values in each column
     missing = df.isna().sum()
+    # sort missing values in ascending order and return the index as a list
     return missing.sort_values(ascending=True).index.tolist()
 
 # function task_2

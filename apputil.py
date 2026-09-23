@@ -37,7 +37,7 @@ df_bellevue = pd.read_csv(url)
 # function task_1
 def task_1():
     df = df_bellevue.copy()
-    df['gender'] = df['gender'].replace('u',pd.NA)
+    df['gender'] = df['gender'].replace("?","g","h",pd.NA)
     return df.isna().sum().sort_values(ascending=True).index.sort_values().tolist()
 
 # function task_2

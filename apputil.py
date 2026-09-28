@@ -17,6 +17,7 @@ def fibonacci(n):
         # recursively call the fibonacci function and return the sum
         return fibonacci(n - 1) + fibonacci(n - 2)
 
+
 # declaring function to_binary with n as a parameter
 def to_binary(n):
     """Convert an integer number to binary"""
@@ -34,16 +35,19 @@ url = 'https://github.com/melaniewalsh/Intro-Cultural-Analytics/raw/master/book/
 # loading the data set into a pandas dataframe
 df_bellevue = pd.read_csv(url)
 
+
 # function task_1
 def task_1():
+    """Return columns sorted by the number of missing values in ascending order"""
     # making copy of data set
     df = df_bellevue.copy()
-    #making the gender column have missing values for the list values
-    df['gender'] = df['gender'].replace(["?","g","h"],pd.NA)
+    # making the gender column have missing values for the list values
+    df['gender'] = df['gender'].replace(["?", "g", "h"],pd.NA)
     # counting the number of missing values in each column
     missing = df.isna().sum()
     # sort missing values in ascending order and return the index as a list
     return missing.sort_values(ascending=True).index.tolist()
+
 
 # function task_2
 def task_2():
@@ -57,14 +61,23 @@ def task_2():
     # group df by year and count the number of admissions & reset the index
     return df.groupby('year').size().reset_index(name='total_admissions')
 
+
 # function task_3
 def task_3():
     """Return the average age of patients by gender in the Bellevue dataset"""
+    ## making copy of data set, invalid gender values with NaN
+    df_cleaned = df_bellevue.copy()
+    df_cleaned['gender'] = df_cleaned['gender'].replace(['?', 'u'], pd.NA)
+
+    # Drop rows with missing gender values
+    df_cleaned = df_cleaned.dropna(subset=['gender'])
+
     # group by the gender and the age to return the mean
     return df_bellevue.groupby('gender')['age'].mean()
+
 
 # function task_4
 def task_4():
     """Return the top 5 professions in the Bellevue dataset"""
-    # take value counts of the profession column and return the top 5 professions
+    # take value counts of profession column and return the top 5 professions
     return df_bellevue['profession'].value_counts().head(5).index.tolist()

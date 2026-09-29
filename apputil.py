@@ -67,13 +67,13 @@ def task_3():
     """Return the average age of patients by gender in the Bellevue dataset"""
     ## making copy of data set, invalid gender values with NaN
     df_cleaned = df_bellevue.copy()
-    df_cleaned['gender'] = df_cleaned['gender'].replace(['?', 'u'], pd.NA)
+    df_cleaned['gender'] = df_cleaned['gender'].replace(['?', 'g', 'h'], pd.NA)
 
     # Drop rows with missing gender values
     df_cleaned = df_cleaned.dropna(subset=['gender'])
 
     # group by the gender and the age to return the mean
-    return df_bellevue.groupby('gender')['age'].mean()
+    return df_cleaned.groupby('gender')['age'].mean()
 
 
 # function task_4
